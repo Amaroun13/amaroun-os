@@ -16,11 +16,6 @@ modules:
     snippets:
       - dnf upgrade -y
 
-  # Kompilace NVIDIA ovladačů na kompletně aktualizovaném základu
-  - type: akmods
-    install:
-      - nvidia
-
   # Instalace msi-ec z COPR repozitáře
   - type: dnf
     repos:
