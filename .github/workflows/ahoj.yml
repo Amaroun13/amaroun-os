@@ -1,0 +1,23 @@
+name: Muj Prvni Jednoduchy Robot
+
+# Robot se spustí pokaždé, když uložíš (pushneš) změnu do hlavní větve
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  pozdrav-a-info:
+    runs-on: ubuntu-latest # Cloud nám na chvíli půjčí čisté Ubuntu
+
+    steps:
+      # Krok 1: Robot napíše text do konzole
+      - name: Pozdrav uživatele
+        run: echo "Ahoj! Jsem tvůj první cloudový robot a funguju na první dobrou!"
+
+      # Krok 2: Robot zjistí aktuální čas na serveru
+      - name: Ukáž aktuální čas v cloudu
+        run: date
+
+      # Krok 3: Robot ti ukáže, jaký hardware ti GitHub vlastně půjčil
+      - name: Co je v cloudu za procesor?
+        run: lscpu | grep "Model name"
