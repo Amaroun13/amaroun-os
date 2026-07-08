@@ -3,7 +3,7 @@
 name: amaroun-os
 description: Čistá Fedora Kinoite - kompletní cloudový upgrade před kompilací.
 
-base-image: quay.io/fedora/fedora-kinoite
+ase-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: 44
 modules:
   - type: files
