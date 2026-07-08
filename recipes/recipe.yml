@@ -1,38 +1,32 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: amaroun-os
-description: Čistá Fedora Kinoite - kompletní cloudový upgrade před kompilací.
+description: Moje vlastní ublue Kinoite s msi-ec a herní výbavou.
 
-base-image: ghcr.io/ublue-os/kinoite-nvidia
-image-version: 44
+# Správný ublue základ (pokud máš NVIDIA grafiku, ublue-os/kinoite-nvidia je jistota)
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: latest
+
 modules:
   - type: files
     files:
       - source: system
         destination: /
 
-  # 🚀 UKRUTNÝ UPGRADE: Aktualizujeme kompletně celý systém v cloudu
-  - type: script
-    snippets:
-      - dnf upgrade -y
-
-  # Instalace msi-ec z COPR repozitáře
-  - type: dnf
+  # Na ublue základu se pro instalaci balíčků a COPR používá modul rpm-ostree, ne surové dnf!
+  - type: rpm-ostree
     repos:
-      copr:
-        - xabi08/MSI-EC
-        - atim/starship
+      - xabi08-MSI-EC-fedora-%OS_VERSION%
+      - atim-starship-fedora-%OS_VERSION%
     install:
-      packages:
-        - micro
-        - starship
-        - akmod-msi-ec
+      - micro
+      - starship
+      - akmod-msi-ec
     remove:
-      packages:
-        - firefox
-        - firefox-langpacks
+      - firefox
+      - firefox-langpacks
 
-  # Instalace Flatpaků (Brave, Steam, Lutris)
+  # Tvůj výběr Flatpaků
   - type: default-flatpaks
     configurations:
       - notify: true
@@ -45,5 +39,4 @@ modules:
           - net.lutris.Lutris
       - scope: user
 
-  # Vygenerování Secure Boot klíčů
   - type: signing
