@@ -1,9 +1,10 @@
+---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: amaroun-os
 description: Čistá Fedora Kinoite - kompletní cloudový upgrade před kompilací.
 
 base-image: quay.io/fedora/fedora-kinoite
-
+image-version: 44
 modules:
   - type: files
     files:
