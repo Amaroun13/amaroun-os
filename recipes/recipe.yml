@@ -12,6 +12,16 @@ modules:
       - source: system
         destination: /
 
+  # Skript, který před instalací balíčků zakáže problémový repozitář negativo17,
+  # který je už zakomponovaný v base-image a nyní má výpadek serveru.
+  - type: script
+    scripts:
+      - |
+        #!/bin/bash
+        if [ -f /etc/yum.repos.d/fedora-multimedia.repo ]; then
+          sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/fedora-multimedia.repo
+        fi
+
   - type: rpm-ostree
     repos:
       - https://copr.fedorainfracloud.org/coprs/xabi08/MSI-EC/repo/fedora-44/xabi08-MSI-EC-fedora-44.repo
@@ -19,10 +29,7 @@ modules:
     install:
       - micro
       - starship
-      # Změněno na akmod-msi-ec: zajistí kompilaci pro přesnou verzi jádra v obraze
       - akmod-msi-ec
-      # Přidáno pro jistotu, aby si akmod bez problému našel hlavičky jádra
-      - kernel-devel
     remove:
       - firefox
       - firefox-langpacks
