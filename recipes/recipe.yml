@@ -12,15 +12,10 @@ modules:
       - source: system
         destination: /
 
-  # Skript, který před instalací balíčků zakáže problémový repozitář negativo17,
-  # který je už zakomponovaný v base-image a nyní má výpadek serveru.
+  # Spustí skript files/scripts/disable-multimedia.sh z vašeho repozitáře
   - type: script
     scripts:
-      - |
-        #!/bin/bash
-        if [ -f /etc/yum.repos.d/fedora-multimedia.repo ]; then
-          sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/fedora-multimedia.repo
-        fi
+      - disable-multimedia.sh
 
   - type: rpm-ostree
     repos:
