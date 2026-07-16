@@ -12,18 +12,17 @@ modules:
       - source: system
         destination: /
 
-  # Přidán modul akmods, který sestaví msi-ec přímo proti správnému kernelu
-  - type: akmods
-    install:
-      - msi-ec
-
   - type: rpm-ostree
     repos:
-      # Odstraněn xabi08-MSI-EC repozitář, který způsoboval konflikt glibc/cpp
+      - https://copr.fedorainfracloud.org/coprs/xabi08/MSI-EC/repo/fedora-44/xabi08-MSI-EC-fedora-44.repo
       - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-44/atim-starship-fedora-44.repo
     install:
       - micro
       - starship
+      # Změněno na akmod-msi-ec: zajistí kompilaci pro přesnou verzi jádra v obraze
+      - akmod-msi-ec
+      # Přidáno pro jistotu, aby si akmod bez problému našel hlavičky jádra
+      - kernel-devel
     remove:
       - firefox
       - firefox-langpacks
