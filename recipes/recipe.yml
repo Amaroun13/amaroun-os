@@ -1,9 +1,10 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: amaroun-os
-description: Moje vlastní ublue Kinoite s hotovým msi-ec kmodem podle návodu.
+description: Moje vlastní ublue Kinoite s hotovým msi-ec kmodem a NVIDIA ovladači.
 
-base-image: ghcr.io/ublue-os/kinoite-main
+# Změna z kinoite-main na kinoite-nvidia automaticky řeší všechny kroky z NVIDIA návodu
+base-image: ghcr.io/ublue-os/kinoite-nvidia
 image-version: latest
 
 modules:
@@ -19,7 +20,11 @@ modules:
     install:
       - micro
       - starship
-      - kmod-msi-ec # OPRAVENO PODLE NÁVODU: kmod místo akmod!
+      - kmod-msi-ec
+    remove:
+      # Odstranění systémového Firefoxu v RPM, jelikož níže instalujete Flatpak
+      - firefox
+      - firefox-langpacks
 
   - type: default-flatpaks
     configurations:
