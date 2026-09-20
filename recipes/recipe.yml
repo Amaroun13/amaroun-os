@@ -6,7 +6,7 @@ name: amaroun-os
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/kinoite-main
 image-version: latest # You can pin to a specific version of Fedora as well
 
 # module configuration, executed in order
@@ -21,10 +21,12 @@ modules:
     repos:
       copr:
         - atim/starship
+        - bieszczad/msi-ec
     install:
       packages:
         - micro
         - starship
+        - msi-ec
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -39,7 +41,12 @@ modules:
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
           - org.mozilla.firefox
+          - org.libreoffice.LibreOffice
           - org.gnome.Loupe
       - scope: user # Also add Flathub user repo, but no user packages
+
+  - type: akmods
+    nvidia-driver: nvidia-open
+    install: []
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
