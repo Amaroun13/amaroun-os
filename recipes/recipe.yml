@@ -21,7 +21,7 @@ modules:
     repos:
       copr:
         - atim/starship
-        - bieszczad/msi-ec
+        - xabi08/MSI-EC
     install:
       packages:
         - micro
