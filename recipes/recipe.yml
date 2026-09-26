@@ -22,7 +22,6 @@ modules:
       copr:
         - atim/starship
         - xabi08/MSI-EC
-        - teackot/*
     install:
       packages:
         - micro
